@@ -1,0 +1,16 @@
+
+//Calculate the number of every word in a string.
+function words(str){
+    var array=str.split(" ");
+    console.log(array.length);
+    var result={},elm;
+    for(var i=0;i<array.length;i++){
+elm=array[i];
+        if(!result[elm]){
+            result[elm]=true;
+            result[elm]=1;
+        }
+        else result[elm]++;
+    }
+    return result;
+}
