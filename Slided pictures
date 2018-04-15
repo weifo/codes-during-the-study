@@ -1,0 +1,88 @@
+
+class Slider{
+  constructor(id,cycle=3000){
+    this.container=document.getElementById(id);
+    this.items=this.container.querySelectorAll(".slider-list-item,.slider-list-item--selected");
+    this.cycle=cycle;
+    this.slideHandlers=[];
+     
+      let controller=this.container.querySelector('.slide-list-control');
+    
+    if(controller){
+      let buttons=document.querySelectorAll('.slide-control-button,.slide-control-button--selected');
+      controller.addEventListener('mouseover',evt=>{
+        var idx=Array.from(buttons).indexOf(evt.target);
+        if(idx>=0){
+          this.slideTo(idx);
+          this.stop();
+        }
+      });
+      
+     controller.addEventListener('mouseout',evt=>{
+       this.start();
+     });
+      
+      this.addSlideListener(function(idx){
+        let selected=controller.querySelector('.slide-control-button--selected');
+        if(selected) selected.className='slide-control-button';
+        buttons[idx].className='slide-control-button--selected';
+      });
+    }
+    
+  }
+  
+
+  
+  getSelectedItem(){
+    let selected=this.container.querySelector(".slider-list-item--selected");
+    return selected;
+  }
+  getSelectedIndex(){
+    return Array.from(this.items).indexOf(this.getSelectedItem());
+  }
+  
+  slideTo(idx){
+    let selected=this.getSelectedItem();
+    if(selected){
+      selected.className="slider-list-item";
+    }
+    let item=this.items[idx];
+    if(item){
+      item.className="slider-list-item--selected";
+    }
+    
+    this.slideHandlers.forEach(handler=>{
+      handler(idx);
+    });
+  }
+  
+  slidePrevious(){
+    let currentIdx=this.getSelectedIndex();
+    let previousIdx=(this.items.length+currentIdx-1)%this.items.length;
+    this.slideTo(previousIdx);
+  }
+  slideNext(){
+    let currentIdx=this.getSelectedIndex();
+    let previousIdx=(currentIdx+1)%this.items.length;
+    this.slideTo(previousIdx);
+  }
+  
+  start(){
+    this.stop();
+    this._slideTimer=setInterval(()=>{
+      this.slideNext();
+    },this.cycle);
+  }
+  
+  stop(){
+    clearInterval(this._slideTimer);
+  }
+  addSlideListener(handler){
+    this.slideHandlers.push(handler);
+  }
+  
+}
+
+ let  s1=new Slider('my-slider');
+ //setInterval(s1.slideNext.bind(s1),2000);
+s1.start();
