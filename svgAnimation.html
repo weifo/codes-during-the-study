@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://c.h5jun.com
+
+Copyright (c) 2018 by anonymous (//c.h5jun.com/kegu/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+body{
+  font-size:10px;
+}
+.line-wrap{
+  width:300px;
+  margin:0 auto;
+  background-color:transparent;
+  //opacity:0;
+}
+.circle-load-rect-svg{
+  margin:10px;
+}
+.g-rect-path{
+  fill:none;
+  stroke-width:10;
+  stroke:#d3dce6;
+  stroke-linejoin:round;
+  
+}
+.g-rect-fill{
+  fill:none;
+  stroke-width:10;
+  stroke:#ff7700;
+  stroke-linejoin:round;
+  stroke-linecap:round;
+  stroke-dasharray:0,1550;
+  stroke-dashoffset:0;
+  animation:lineMove 2s ease-out infinite;
+  
+}
+line{
+  stroke:#ff7700;
+  stroke-width:5;
+}
+
+@keyframes lineMove{
+  0%{
+    stroke-dasharray:0,1350;
+  }
+  100%{
+    stroke-dasharray:1350,1350;
+  }
+}
+
+
+.svg-border-animation{
+  position:absolute;
+  width:320px;
+  height:60px;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+}
+.hover-text{
+  position:absolute;
+  line-height:60px;
+  width:320px;
+  top:0;
+  color:#333;
+  font-size:28px;
+  text-align:center;
+  cursor:pointer;
+}
+.shape{
+  fill:transparent;
+  stroke-width:4px;
+  stroke:#333;
+  stroke-dasharray:160 520;
+  stroke-dashoffset:-460;
+}
+.svg-border-animation:hover .hover-text{
+  transition:0.5s;
+  color:#3F51b5;
+}
+.svg-border-animation:hover .shape{
+  -webkit-animation:draw 0.55s linear forwards;
+
+  animation:draw 0.55s linear farwards;
+}
+@keyframes draw {
+  0%{
+    stroke-dasharray:160 520;
+    stroke-dashoffset:-460;
+    stroke-width:4px;
+  }
+  100%{
+    stroke-dasharray:760;
+    stroke-dashoffset:0;
+    stroke-width:2px;
+    stroke:#3f5185;
+  }
+}
+</style>
+</head>
+<body>
+  <!--Demo1 进度条-->
+  <div class='line-wrap'>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+     class="cricle-load-rect-svg" width="300" height="200"
+     viewbox="0 0 600 400">
+  <line stroke-dasharray="5,10" x1="10" y1="50" x2='600' y2="50"/>
+  <polyline points="5 5, 575 5,575 200,5 200" class="g-rect-path"/>
+  <polyline points="5 5, 575 5,575 200,5 200" class="g-rect-fill"/>
+  </svg>
+  </div>
+  <!--Demo2 hover and animation -->
+  <hgroup class="svg-border-animation">
+    <svg viewbox="0 0 320 60">
+      <rect class='shape'  height="60" width="320"></rect>
+      
+    </svg>
+    <div class="hover-text">HOVER ME</div>
+    <hgroup>
+</body>
+</html>
